@@ -16,7 +16,8 @@ import java.util.Map;
  * @since 30.10.2021
  */
 public class AirNavigationGraph {
-    private Map<Airport, LinkedList<Edge<Airport, Integer>>> graph;
+    //private Map<Airport, LinkedList<Edge<Airport, Integer>>> graph;
+    private Map<Airport, Map<Airport, Integer>> graph;
 
     /**
      * constructor
@@ -30,7 +31,7 @@ public class AirNavigationGraph {
      * @param vertex the specific airport
      */
     public void addVertex(Airport vertex){
-        //TODO: Implement
+        this.graph.putIfAbsent(vertex, new HashMap<>());
     }
 
     /**
@@ -38,7 +39,10 @@ public class AirNavigationGraph {
      * @param vertex the specific airport
      */
     public void removeVertex(Airport vertex){
-        //TODO: Implement
+        this.graph.remove(vertex);
+        this.graph
+                .forEach((k, v) -> v.remove(vertex)
+                );
     }
 
     /**
@@ -49,7 +53,12 @@ public class AirNavigationGraph {
      * @param directional true if directional, false if undirectional
      */
     public void addEdge(Airport firstVertex, Airport lastVertex, int weight, boolean directional){
-        //TODO: Implement
+        addVertex(firstVertex);
+        this.graph.get(firstVertex).put(lastVertex, weight);
+        if(!directional){
+            addVertex(lastVertex);
+            this.graph.get(lastVertex).put(firstVertex, weight);
+        }
     }
 
     /**
@@ -59,7 +68,11 @@ public class AirNavigationGraph {
      * @param directional type of removal, true ignores direction
      */
     public void removeEdge(Airport firstVertex, Airport lastVertex, boolean directional){
-        //TODO: Implement
+        this.graph.get(firstVertex).remove(lastVertex);
+        if(!directional){
+            this.graph.get(lastVertex).remove(firstVertex);
+        }
+
     }
 
     /**
@@ -69,15 +82,17 @@ public class AirNavigationGraph {
      */
     public void route(Airport departure, Airport destination){
         //TODO: Implement
-        //This is going to contain the dijkstas fastest route algorithm
+        //This is going to contain the Dijkstas fastest route algorithm
     }
 
     /**
      * modifies the weight of the edge (both directions if undirectional)
      * @param firstVertex the first airport of the connection
      * @param lastVertex the second airport of the connection
+     * @param weight the new weight of the route
      */
-    public void alterWeight(Airport firstVertex, Airport lastVertex){
-        //TODO: Implement
+    public void alterWeight(Airport firstVertex, Airport lastVertex, int weight){
+        this.graph.get(firstVertex).replace(lastVertex, weight);
+        this.graph.get(lastVertex).replace(firstVertex, weight);
     }
 }

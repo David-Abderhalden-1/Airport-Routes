@@ -1,6 +1,8 @@
 package airRoutes.utils.common;
 
 /**
+ * @deprecated Is no longer used (was our first approach)
+ *
  * The Edge class represents an edge of the AirNavigationGraph
  * and is only used by this graph. It stores a Vertex as well
  * as the weight of the edge.
