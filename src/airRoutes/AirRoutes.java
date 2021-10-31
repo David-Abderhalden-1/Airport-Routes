@@ -1,5 +1,8 @@
 package airRoutes;
 
+import airRoutes.utils.Airport;
+import airRoutes.utils.common.AirNavigationGraph;
+
 /**
  * ---------------------- Air Route Flight ----------------------
  * Welcome to Air Routes. This program was designed for our final
@@ -32,5 +35,9 @@ public class AirRoutes {
     /**
      * This is the method which controls the whole program.
      */
-    private void airRoutes(){}
+    private void airRoutes(){
+        AirNavigationGraph graph = new AirNavigationGraph();
+        graph.addVertex(new Airport("switzerland", "zuerich", "Flughafen Zürich", "FZH"));
+        graph.addEdge(new Airport("switzerland", "zuerich", "Flughafen Zürich", "FZH"), new Airport("germany", "berlin", "Flughafen Berlin", "FBL"), 3, true);
+    }
 }

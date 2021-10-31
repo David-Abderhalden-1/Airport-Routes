@@ -54,9 +54,9 @@ public class AirNavigationGraph {
      */
     public void addEdge(Airport firstVertex, Airport lastVertex, int weight, boolean directional){
         addVertex(firstVertex);
+        addVertex(lastVertex);
         this.graph.get(firstVertex).put(lastVertex, weight);
         if(!directional){
-            addVertex(lastVertex);
             this.graph.get(lastVertex).put(firstVertex, weight);
         }
     }
