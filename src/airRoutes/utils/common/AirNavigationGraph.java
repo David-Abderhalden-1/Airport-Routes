@@ -2,10 +2,7 @@ package airRoutes.utils.common;
 
 import airRoutes.utils.Airport;
 
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * This Class represents an adjacency list implementation of a graph.
@@ -18,7 +15,7 @@ import java.util.PriorityQueue;
  */
 public class AirNavigationGraph {
     //private Map<Airport, LinkedList<Edge<Airport, Integer>>> graph;
-    private Map<Airport, Map<Airport, Integer>> graph;
+    private Map<Airport, Map<Airport, Double>> graph;
 
     /**
      * constructor
@@ -53,7 +50,7 @@ public class AirNavigationGraph {
      * @param weight the weight of the edge
      * @param directional true if directional, false if undirectional
      */
-    public void addEdge(Airport firstVertex, Airport lastVertex, int weight, boolean directional){
+    public void addEdge(Airport firstVertex, Airport lastVertex, double weight, boolean directional){
         addVertex(firstVertex);
         addVertex(lastVertex);
         this.graph.get(firstVertex).put(lastVertex, weight);
@@ -83,7 +80,7 @@ public class AirNavigationGraph {
      */
     public void route(Airport departure, Airport destination){
         //Create queue & list
-        LinkedList<Airport> checkedVertex = new LinkedList<>();
+        HashMap<Airport, QueueBucket> checkedVertex = new HashMap<>();
         PriorityQueue<QueueBucket> queue = new PriorityQueue<>();
 
         //Handle first round
@@ -94,13 +91,13 @@ public class AirNavigationGraph {
         while (currentVertex.getVertex() != destination){
             //Add airport to checked vertex &  remove it from queue
             queue.poll();
-            checkedVertex.add(currentVertex.getVertex());
+            checkedVertex.put(currentVertex.getVertex(), currentVertex);
             //Needs to be a final copy for lambda
             QueueBucket finalCurrentVertex = currentVertex;
             //key is new vertex / value is the weight of the edge
-            Map<Airport, Integer> test = this.graph.get(currentVertex.getVertex());
+            Map<Airport, Double> test = this.graph.get(currentVertex.getVertex());
             test.forEach((k, v) -> {
-                if(!checkedVertex.contains(k)) {
+                if(!checkedVertex.containsKey(k)) {
                     try {
                         //Filter Queue for vertex
                         QueueBucket bucket = (QueueBucket) queue.stream().filter((b) -> b.getVertex().equals(k)).toArray()[0];
@@ -120,9 +117,20 @@ public class AirNavigationGraph {
             //Get new current vertex
             currentVertex = queue.peek();
         }
+        checkedVertex.put(currentVertex.getVertex(), currentVertex);
 
-        //TODO: Process result in queue
-        System.out.println("Dijkstra End");
+
+        //Processing and display of the route TODO: Cleanup and make prettier
+        Stack<String> displayRoute = new Stack<>();
+        while(currentVertex.getVertex() != departure){
+            QueueBucket lastVertex = checkedVertex.get(currentVertex.getLastVertex());
+            displayRoute.push("  --"+(currentVertex.getRouteLength()-lastVertex.getRouteLength())+"-->  "+currentVertex.getVertex().getName());
+            currentVertex = lastVertex;
+        }
+        System.out.print(currentVertex.getVertex().getName());
+        while(!displayRoute.isEmpty()) {
+            System.out.print(displayRoute.pop());
+        }
     }
 
     /**
@@ -131,7 +139,7 @@ public class AirNavigationGraph {
      * @param lastVertex the second airport of the connection
      * @param weight the new weight of the route
      */
-    public void alterWeight(Airport firstVertex, Airport lastVertex, int weight){
+    public void alterWeight(Airport firstVertex, Airport lastVertex, double weight){
         this.graph.get(firstVertex).replace(lastVertex, weight);
         this.graph.get(lastVertex).replace(firstVertex, weight);
     }

@@ -14,10 +14,10 @@ import airRoutes.utils.Airport;
  */
 public class QueueBucket implements Comparable<QueueBucket>{
     private final Airport vertex;
-    private int routeLength;
+    private double routeLength;
     private Airport lastVertex;
 
-    public QueueBucket(Airport vertex, int weight, Airport lastVertex){
+    public QueueBucket(Airport vertex, double weight, Airport lastVertex){
         this.vertex = vertex;
         this.routeLength = weight;
         this.lastVertex = lastVertex;
@@ -28,7 +28,7 @@ public class QueueBucket implements Comparable<QueueBucket>{
         return vertex;
     }
 
-    public int getRouteLength() {
+    public double getRouteLength() {
         return routeLength;
     }
 
@@ -38,7 +38,7 @@ public class QueueBucket implements Comparable<QueueBucket>{
 
     //Setter
 
-    public void setRouteLength(int routeLength) {
+    public void setRouteLength(double routeLength) {
         this.routeLength = routeLength;
     }
 
@@ -48,16 +48,6 @@ public class QueueBucket implements Comparable<QueueBucket>{
 
     @Override
     public int compareTo(QueueBucket other) {
-        return Integer.compare(this.routeLength, other.getRouteLength());
-    }
-
-    @Override
-    public boolean equals(Object obj){
-        if (obj == null) return false;
-        if (!(obj instanceof Airport)) return false;
-
-        Airport airport = (Airport) obj;
-
-        return airport.equals(this.vertex);
+        return Double.compare(this.routeLength, other.getRouteLength());
     }
 }
