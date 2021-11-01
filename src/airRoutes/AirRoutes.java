@@ -11,7 +11,7 @@ import airRoutes.utils.common.AirNavigationGraph;
  * directional as well as undirectional edges. These edges
  * represent the flight routes between airports. They have given
  * weights (which can be modified).
- * With help of "Dijkstas shortest path" algorithm the user will
+ * With help of "Dijkstras shortest path" algorithm the user will
  * be able to calculate the most practical route.
  *
  * More Information can be found in: README.md
@@ -36,8 +36,25 @@ public class AirRoutes {
      * This is the method which controls the whole program.
      */
     private void airRoutes(){
+        Airport A = new Airport("Aland", "Acity", "A", "AAA");
+        Airport B = new Airport("Bland", "Bcity", "B", "BBB");
+        Airport C = new Airport("Cland", "Ccity", "C", "CCC");
+        Airport D = new Airport("Dland", "Dcity", "D", "DDD");
+        Airport E = new Airport("Eland", "Ecity", "E", "EEE");
+        Airport F = new Airport("Fland", "Fcity", "F", "FFF");
+        Airport G = new Airport("Gland", "Gcity", "G", "GGG");
+
         AirNavigationGraph graph = new AirNavigationGraph();
-        graph.addVertex(new Airport("switzerland", "zuerich", "Flughafen Zürich", "FZH"));
-        graph.addEdge(new Airport("switzerland", "zuerich", "Flughafen Zürich", "FZH"), new Airport("germany", "berlin", "Flughafen Berlin", "FBL"), 3, true);
+        graph.addEdge(A, B, 1, false);
+        graph.addEdge(B, C, 3, false);
+        graph.addEdge(B, D, 1, false);
+        graph.addEdge(D, C, 1, false);
+        graph.addEdge(A, F, 1, false);
+        graph.addEdge(F, G, 3, false);
+        graph.addEdge(G, E, 2, false);
+        graph.addEdge(E, F, 2, false);
+        graph.addEdge(E, B, 3, false);
+
+        graph.route(B, C);
     }
 }

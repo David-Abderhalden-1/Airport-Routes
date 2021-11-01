@@ -5,6 +5,7 @@ import airRoutes.utils.Airport;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  * This Class represents an adjacency list implementation of a graph.
@@ -81,8 +82,47 @@ public class AirNavigationGraph {
      * @param destination the airport of arrival
      */
     public void route(Airport departure, Airport destination){
-        //TODO: Implement
-        //This is going to contain the Dijkstas fastest route algorithm
+        //Create queue & list
+        LinkedList<Airport> checkedVertex = new LinkedList<>();
+        PriorityQueue<QueueBucket> queue = new PriorityQueue<>();
+
+        //Handle first round
+        QueueBucket currentVertex = new QueueBucket(departure, 0, null);
+        queue.add(currentVertex);
+
+        //While the vertex to be checked isn't the destination
+        while (currentVertex.getVertex() != destination){
+            //Add airport to checked vertex &  remove it from queue
+            queue.poll();
+            checkedVertex.add(currentVertex.getVertex());
+            //Needs to be a final copy for lambda
+            QueueBucket finalCurrentVertex = currentVertex;
+            //key is new vertex / value is the weight of the edge
+            Map<Airport, Integer> test = this.graph.get(currentVertex.getVertex());
+            test.forEach((k, v) -> {
+                if(!checkedVertex.contains(k)) {
+                    try {
+                        //Filter Queue for vertex
+                        QueueBucket bucket = (QueueBucket) queue.stream().filter((b) -> b.getVertex().equals(k)).toArray()[0];
+                        //Check if new route  is faster than last
+                        if(finalCurrentVertex.getRouteLength()+v < bucket.getRouteLength()){
+                            //Overwrite last route with new, faster route
+                            bucket.setRouteLength(finalCurrentVertex.getRouteLength()+v);
+                            bucket.setLastVertex(finalCurrentVertex.getVertex());
+                        }
+                    //If vertex is not yet present in queue
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        //Add a new vertex with route length
+                        queue.add(new QueueBucket(k, v + finalCurrentVertex.getRouteLength(), finalCurrentVertex.getVertex()));
+                    }
+                }
+            });
+            //Get new current vertex
+            currentVertex = queue.peek();
+        }
+
+        //TODO: Process result in queue
+        System.out.println("Dijkstra End");
     }
 
     /**
