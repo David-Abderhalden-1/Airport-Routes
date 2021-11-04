@@ -9,20 +9,20 @@ public class FileHandler {
     private final static String delimiter = ";";
 
     private static BufferedReader readFile(String path){
-        BufferedReader bufferedReader = null;
         try{
             File file = new File(path);
             InputStreamReader reader = new InputStreamReader(
                     new FileInputStream(file), StandardCharsets.UTF_8);
-            bufferedReader = new BufferedReader(reader);
+            return new BufferedReader(reader);
         } catch (IOException e){
             ConsoleInteractions.errorMessage(1);
         }
-        return bufferedReader;
+        return null;
     }
 
     public static AirNavigationGraph getVertex(AirNavigationGraph inputGraph) throws IOException {
-        BufferedReader reader = readFile("/src/airRoutes/docs/data/vertex.csv");
+        BufferedReader reader = readFile("src/airRoutes/docs/data/vertex.CSV");
+        if(reader == null) return inputGraph;
         while (reader.ready()) {
             String[] parsedCsv = reader.readLine().split(delimiter);
 
@@ -36,7 +36,8 @@ public class FileHandler {
     }
 
     public static AirNavigationGraph getEdges(AirNavigationGraph inputGraph) throws IOException {
-        BufferedReader reader = readFile("/src/airRoutes/docs/data/edges.csv");
+        BufferedReader reader = readFile("src/airRoutes/docs/data/edges.csv");
+        if(reader == null) return inputGraph;
         while (reader.ready()) {
             String[] parsedCsv = reader.readLine().split(delimiter);
 

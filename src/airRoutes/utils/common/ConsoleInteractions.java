@@ -23,13 +23,16 @@ public class ConsoleInteractions {
      * @return The error message as a type String
      */
     public static void errorMessage(int id){
-        String[] errors = new String[]{
-                "An unexpected error occurred while reading the user input",
-                "A file could not be read, please contact the support",
-                "The default graph could not be loaded. This likely due to an internal Error"
-        };
-        if(id < errors.length && id > -1) write(errors[id], true);
-        write( "Cannot find error message with ID "+id, true);
+        try{
+            String[] errors = new String[]{
+                    "An unexpected error occurred while reading the user input",
+                    "A file could not be read, please contact the support",
+                    "The default graph could not be loaded. This likely due to an internal Error"
+            };
+            write(errors[id], true);
+        }catch (NullPointerException e){
+            write( "Cannot find error message with ID "+id, true);
+        }
     }
 
     /**

@@ -6,7 +6,6 @@ import airRoutes.utils.common.ConsoleInteractions;
 import airRoutes.utils.common.FileHandler;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 /**
@@ -43,20 +42,17 @@ public class AirRoutes {
      */
     private void airRoutes(){
         // print caption
+        AirNavigationGraph graph = null;
         try{
             // print loading bar
-            AirNavigationGraph graph = initializeGraph();
+            graph = initializeGraph();
         }catch (IOException e){
             ConsoleInteractions.errorMessage(2);
         }
 
-        String test = ConsoleInteractions.read("Gebe etwas ein: ");
-        ConsoleInteractions.write(test, true);
-        TreeMap<String, String> menuOptions = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-        menuOptions.put("A", "balaslfkaslf");
-        menuOptions.put("B", "asdasdfasfsa");
-        String chosen = ConsoleInteractions.menu(menuOptions);
-        ConsoleInteractions.write(chosen, true);
+        Airport a = graph.getAirportFromAbbreviation("MAD");
+        Airport b = graph.getAirportFromAbbreviation("FRA");
+        graph.route(a, b);
     }
 
     private AirNavigationGraph initializeGraph() throws IOException {
