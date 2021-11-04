@@ -3,6 +3,7 @@ package airRoutes.utils.common;
 import airRoutes.utils.Airport;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * This Class represents an adjacency list implementation of a graph.
@@ -22,6 +23,14 @@ public class AirNavigationGraph {
     */
     public AirNavigationGraph(){
         this.graph = new HashMap<>();
+    }
+
+
+    public Airport getAirportFromAbbreviation(String abbreviation){
+        for(Map.Entry<Airport, Map<Airport, Double>> entry: this.graph.entrySet()){
+            if(entry.getKey().getAbbreviation().equals(abbreviation)) return entry.getKey();
+        }
+        return null;
     }
 
     /**

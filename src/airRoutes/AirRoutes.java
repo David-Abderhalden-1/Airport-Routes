@@ -2,6 +2,12 @@ package airRoutes;
 
 import airRoutes.utils.Airport;
 import airRoutes.utils.common.AirNavigationGraph;
+import airRoutes.utils.common.ConsoleInteractions;
+import airRoutes.utils.common.FileHandler;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * ---------------------- Air Route Flight ----------------------
@@ -36,49 +42,27 @@ public class AirRoutes {
      * This is the method which controls the whole program.
      */
     private void airRoutes(){
-        Airport A = new Airport("Aland", "landland", "aaaairport", "AAA");
-        Airport B = new Airport("Bland", "guggeligutsch", "Wasserhose", "BBB");
-        Airport C = new Airport("Cland", "landland", "aaaairport", "CCC");
-        Airport D = new Airport("Dland", "Dnew", "Sodastream", "DDD");
-        Airport E = new Airport("Eland", "Oryyx", "LADE", "EEE");
-        Airport F = new Airport("Fland", "Fischen-hausen", "Forelle", "FFF");
-        Airport G = new Airport("Gland", "Gringor", "airport Gringor", "GGG");
-        Airport H = new Airport("Hland", "CSS", "digitales Simsen", "HHH");
-        Airport I = new Airport("Iland", "rennes", "Vögels", "VÖ");
-        Airport J = new Airport("Jland", "<Jogi>", "Ja perfekt machsch du das", "JJJ");
-        Airport K = new Airport("Kland", "landland", "aaaairport", "KKK");
-        Airport L = new Airport("Lland", "Landandandand", "Anden", "LLL");
-        Airport M = new Airport("Mland", "Mamma Mia!", "Mammmmma", "MMM'");
-        Airport N = new Airport("Nland", "Nasen-hausen", "Hasen", "NNN");
-        Airport O = new Airport("Oland", "Applejuice", "Veronica der Lentz ist da... Autsch! Nein, Hilfe stop!", "OOO'");
-        Airport P = new Airport("Pland", "Plan B", "Plan A", "PPP");
+        // print caption
+        try{
+            // print loading bar
+            AirNavigationGraph graph = initializeGraph();
+        }catch (IOException e){
+            ConsoleInteractions.errorMessage(1);
+        }
 
+        String test = ConsoleInteractions.read("Gebe etwas ein: ");
+        ConsoleInteractions.write(test, true);
+        TreeMap<String, String> menuOptions = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        menuOptions.put("A", "balaslfkaslf");
+        menuOptions.put("B", "asdasdfasfsa");
+        String chosen = ConsoleInteractions.menu(menuOptions);
+        ConsoleInteractions.write(chosen, true);
+    }
+
+    private AirNavigationGraph initializeGraph() throws IOException {
         AirNavigationGraph graph = new AirNavigationGraph();
-
-        graph.addEdge(A, B, 2, false);
-        graph.addEdge(B, P, 1, false);
-        graph.addEdge(P, O, 1, false);
-        graph.addEdge(O, B, 1, false);
-        graph.addEdge(O, M, 0.5, false);
-        graph.addEdge(M, C, 1, false);
-        graph.addEdge(C, A, 2, false);
-        graph.addEdge(C, L, 1, false);
-        graph.addEdge(M, N, 8, false);
-        graph.addEdge(N, J, 3, false);
-        graph.addEdge(J, I, 3, false);
-        graph.addEdge(I, D, 4, false);
-        graph.addEdge(D, K, 1, false);
-        graph.addEdge(D, A, 2, false);
-        graph.addEdge(J, H, 8, false);
-        graph.addEdge(H, G, 1, false);
-        graph.addEdge(H, D, 1, false);
-        graph.addEdge(G, F, 2, false);
-        graph.addEdge(F, E, 1, false);
-        graph.addEdge(E, G, 1, false);
-        graph.addEdge(E, H, 3, false);
-        graph.addEdge(A, E, 2, false);
-        graph.addEdge(A, H, 4, false);
-
-        graph.route(P, C);
+        FileHandler.getVertex(graph);
+        FileHandler.getEdges(graph);
+        return graph;
     }
 }
