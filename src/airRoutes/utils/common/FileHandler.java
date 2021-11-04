@@ -6,7 +6,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class FileHandler {
-    private final static String delimiter = ",";
+    private final static String delimiter = ";";
 
     private static BufferedReader readFile(String path){
         BufferedReader bufferedReader = null;

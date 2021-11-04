@@ -47,7 +47,7 @@ public class AirRoutes {
             // print loading bar
             AirNavigationGraph graph = initializeGraph();
         }catch (IOException e){
-            ConsoleInteractions.errorMessage(1);
+            ConsoleInteractions.errorMessage(2);
         }
 
         String test = ConsoleInteractions.read("Gebe etwas ein: ");
