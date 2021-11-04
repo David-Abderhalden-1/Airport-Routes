@@ -124,10 +124,10 @@ public class AirNavigationGraph {
         Stack<String> displayRoute = new Stack<>();
         while(currentVertex.getVertex() != departure){
             QueueBucket lastVertex = checkedVertex.get(currentVertex.getLastVertex());
-            displayRoute.push("  --"+(currentVertex.getRouteLength()-lastVertex.getRouteLength())+"-->  "+currentVertex.getVertex().getName());
+            displayRoute.push("  --"+(currentVertex.getRouteLength()-lastVertex.getRouteLength())+"-->  "+currentVertex.getVertex().getAbbreviation());
             currentVertex = lastVertex;
         }
-        System.out.print(currentVertex.getVertex().getName());
+        System.out.print(currentVertex.getVertex().getAbbreviation());
         while(!displayRoute.isEmpty()) {
             System.out.print(displayRoute.pop());
         }

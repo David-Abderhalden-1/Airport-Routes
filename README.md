@@ -18,16 +18,34 @@ This was the perfect opportunity to try.
 In the extended description of our project was a given route for cars. We really wanted to design 
 our own plan with airports and flights (see in Files). 
 
+During the whole project we set ourselves one more challenge. The internet should only be 
+used to execute programs like "draw io", get stockfotos from usw. but __never__ to look
+up code. The reason behind this goal was the following:
+- We want to check how far we can go with our new knowledge of Module 411 without any help.
+
+And it worked out surprisingly good in the end. While the code we wrote may have potential 
+to improve, we are still very prod to call it our own...
+
 ###Grading:
 The module 411 grading is broken into three parts. The first two are both tests about a specific
 topic. Now the last one is a more interesting mini project, where we are able to show off our skills.  
 <br>
 ###More about module 411:
-... 
+_We are one of the last classes to be able to experience this Module_
+
+As the name __Algorithmics and Datastructures__ suggests is this module all about the roots of
+programing. We experienced Javas most basic and also more Advanced datastructures like
+HashMap / LinkedList / Stack / Queue and had the chance to implement them by our selfes. 
+
+We also dug deeper in the field of __Recursion__ as well as __Graphs__ which we implemented in
+multiple small projects. 
+
+Over all this was e very interesting Module, full of very great knowledge.
+At this point we would also like to thank our competent teacher for de great classes.
 <br>
 ###Credits: 
 David Abderhalden / Joris Hänseler  
 <br>
 ###Files:
 * airRoutes/AirRoutes.java -> _Main Class_
-* ... (Arbeitsaufteilung / Auftrag)
+* Progress_Description.pdf -> Who made what, when ...

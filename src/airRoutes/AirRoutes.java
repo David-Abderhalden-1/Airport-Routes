@@ -36,22 +36,22 @@ public class AirRoutes {
      * This is the method which controls the whole program.
      */
     private void airRoutes(){
-        Airport A = new Airport("Aland", "landland", "aaaairport", "airy");
-        Airport B = new Airport("Bland", "guggeligutsch", "Wasserhose", "WH");
-        Airport C = new Airport("Cland", "landland", "aaaairport", "airy");
-        Airport D = new Airport("Dland", "Dnew", "Sodastream", "Senistake");
-        Airport E = new Airport("Eland", "Oryyx", "LADE", "LADE");
-        Airport F = new Airport("Fland", "Fischen-hausen", "Forelle", "gebratene Forelle");
-        Airport G = new Airport("Gland", "Gringor", "airport Gringor", "telegarger");
-        Airport H = new Airport("Hland", "CSS", "digitales Simsen", "Simsen");
+        Airport A = new Airport("Aland", "landland", "aaaairport", "AAA");
+        Airport B = new Airport("Bland", "guggeligutsch", "Wasserhose", "BBB");
+        Airport C = new Airport("Cland", "landland", "aaaairport", "CCC");
+        Airport D = new Airport("Dland", "Dnew", "Sodastream", "DDD");
+        Airport E = new Airport("Eland", "Oryyx", "LADE", "EEE");
+        Airport F = new Airport("Fland", "Fischen-hausen", "Forelle", "FFF");
+        Airport G = new Airport("Gland", "Gringor", "airport Gringor", "GGG");
+        Airport H = new Airport("Hland", "CSS", "digitales Simsen", "HHH");
         Airport I = new Airport("Iland", "rennes", "Vögels", "VÖ");
-        Airport J = new Airport("Jland", "<Jogi>", "Ja perfekt machsch du das", "JPMDD");
-        Airport K = new Airport("Kland", "landland", "aaaairport", "airy");
-        Airport L = new Airport("Lland", "Landandandand", "Anden", "And");
-        Airport M = new Airport("Mland", "Mamma Mia!", "Mammmmma", "Mam'");
-        Airport N = new Airport("Nland", "Nasen-hausen", "Hasen", "Langohrhasen");
-        Airport O = new Airport("Oland", "Applejuice", "Veronica der Lentz ist da... Autsch! Nein, Hilfe stop!", "Verre'");
-        Airport P = new Airport("Pland", "Plan B", "Plan A", "funckin' Pland");
+        Airport J = new Airport("Jland", "<Jogi>", "Ja perfekt machsch du das", "JJJ");
+        Airport K = new Airport("Kland", "landland", "aaaairport", "KKK");
+        Airport L = new Airport("Lland", "Landandandand", "Anden", "LLL");
+        Airport M = new Airport("Mland", "Mamma Mia!", "Mammmmma", "MMM'");
+        Airport N = new Airport("Nland", "Nasen-hausen", "Hasen", "NNN");
+        Airport O = new Airport("Oland", "Applejuice", "Veronica der Lentz ist da... Autsch! Nein, Hilfe stop!", "OOO'");
+        Airport P = new Airport("Pland", "Plan B", "Plan A", "PPP");
 
         AirNavigationGraph graph = new AirNavigationGraph();
 
@@ -79,6 +79,6 @@ public class AirRoutes {
         graph.addEdge(A, E, 2, false);
         graph.addEdge(A, H, 4, false);
 
-        graph.route(N, F);
+        graph.route(P, C);
     }
 }
