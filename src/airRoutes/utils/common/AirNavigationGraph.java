@@ -136,10 +136,11 @@ public class AirNavigationGraph {
             displayRoute.push("  --"+(currentVertex.getRouteLength()-lastVertex.getRouteLength())+"-->  "+currentVertex.getVertex().getAbbreviation());
             currentVertex = lastVertex;
         }
-        System.out.print(currentVertex.getVertex().getAbbreviation());
+        System.out.print("\n> "+currentVertex.getVertex().getAbbreviation());
         while(!displayRoute.isEmpty()) {
             System.out.print(displayRoute.pop());
         }
+        System.out.println("\n> END");
     }
 
     /**
@@ -148,8 +149,13 @@ public class AirNavigationGraph {
      * @param lastVertex the second airport of the connection
      * @param weight the new weight of the route
      */
-    public void alterWeight(Airport firstVertex, Airport lastVertex, double weight){
-        this.graph.get(firstVertex).replace(lastVertex, weight);
-        this.graph.get(lastVertex).replace(firstVertex, weight);
+    public boolean alterWeight(Airport firstVertex, Airport lastVertex, double weight){
+        Object response1 = this.graph.get(firstVertex).replace(lastVertex, weight);
+        Object response2 = this.graph.get(lastVertex).replace(firstVertex, weight);
+        return response1 != null && response2 != null;
+    }
+
+    public void display() {
+        //TODO: Implement
     }
 }
