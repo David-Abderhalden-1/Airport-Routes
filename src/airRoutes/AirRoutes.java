@@ -42,36 +42,36 @@ public class AirRoutes {
     }
 
     /**
-     * This is the method which controls the whole program.
+     * This is the method which runs the main program.
      */
     private void airRoutes(){
         // Initialisations
         TreeMap<String, String> mainMenu = new TreeMap<>(String.CASE_INSENSITIVE_ORDER){{
             put("A","Display Route");
             put("B", "Display Graph");
-            put("C","Register Delay");
-            put("D"," -> Exit");
+            put("C", "Register Delay");
+            put("D", "Reset all Durations");
+            put("E", " -> Exit");
         }};
 
-        // Load graph from file
         // TODO: Print caption
-        try{
-            // TODO: print loading bar
-            this.graph = initializeGraph();
-        }catch (IOException e){
-            ConsoleInteractions.errorMessage(2);
-        }
+        loadDefault();
 
         while(true){
             switch(ConsoleInteractions.menu(mainMenu).toLowerCase()){
                 case "a" : getRoute(); break;
                 case "b" : this.graph.display(); break;
                 case "c" : registerDelay(); break;
-                case "d" : System.exit(0); break;
+                case "d" : loadDefault(); break;
+                case "e" : System.exit(0); break;
             }
         }
     }
 
+    /**
+     * Procedure for menu option 'C',
+     * manipulates graph and handles user interaction.
+     */
     private void registerDelay(){
         Airport airNo1, airNo2; double newDuration = -1;
         do{
@@ -96,6 +96,11 @@ public class AirRoutes {
         }
     }
 
+    /**
+     * Triggers data loading from FileHandler
+     * @return filled graph
+     * @throws IOException If there was an exception in the FileHandler
+     */
     private AirNavigationGraph initializeGraph() throws IOException {
         AirNavigationGraph graph = new AirNavigationGraph();
         FileHandler.getVertex(graph);
@@ -103,6 +108,10 @@ public class AirRoutes {
         return graph;
     }
 
+    /**
+     * Procedure for menu option 'A',
+     * user interaction to get the fastest route from graph
+     */
     private void getRoute() {
         Airport airNo1, airNo2;
         do{
@@ -115,6 +124,11 @@ public class AirRoutes {
         this.graph.route(airNo1, airNo2);
     }
 
+    /**
+     * Get graph vertex from validated abbreviation
+     * handled from raw user input
+     * @return Array of airports, first and last
+     */
     private Airport[] checkAbbreviation() {
         String abbrevNo1 =
                 Objects.requireNonNull(ConsoleInteractions.read("Enter the first airport abbreviation: ")).toUpperCase();
@@ -132,5 +146,19 @@ public class AirRoutes {
         }
 
         return new Airport[]{airNo1, airNo2};
+    }
+
+    /**
+     * Top level data loading trigger,
+     * procedure for menu option 'D',
+     * catches FileHandler exception, triggers data loading
+     */
+    private void loadDefault(){
+        try{
+            // TODO: print loading bar
+            this.graph = initializeGraph();
+        }catch (IOException e){
+            ConsoleInteractions.errorMessage(2);
+        }
     }
 }

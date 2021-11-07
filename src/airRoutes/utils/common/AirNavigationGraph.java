@@ -2,6 +2,7 @@ package airRoutes.utils.common;
 
 import airRoutes.utils.Airport;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -15,7 +16,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * @since 30.10.2021
  */
 public class AirNavigationGraph {
-    //private Map<Airport, LinkedList<Edge<Airport, Integer>>> graph;
+    // Main graph
     private Map<Airport, Map<Airport, Double>> graph;
 
     /**
@@ -26,6 +27,12 @@ public class AirNavigationGraph {
     }
 
 
+    /**
+     * This method searches the graph for an airport by
+     * its abbreviation.
+     * @param abbreviation The abbreviation to search for
+     * @return found airport, if it found none, null
+     */
     public Airport getAirportFromAbbreviation(String abbreviation){
         for(Map.Entry<Airport, Map<Airport, Double>> entry: this.graph.entrySet()){
             if(entry.getKey().getAbbreviation().equals(abbreviation)) return entry.getKey();
@@ -129,17 +136,22 @@ public class AirNavigationGraph {
         checkedVertex.put(currentVertex.getVertex(), currentVertex);
 
 
-        //Processing and display of the route TODO: Cleanup and make prettier
+        //Processing and display of the route (nothing to do with dijkstra)
+        int hours = (int) currentVertex.getRouteLength();
+        double minutes = 60*(10 * currentVertex.getRouteLength() - 10 * hours)/10;
+
         Stack<String> displayRoute = new Stack<>();
         while(currentVertex.getVertex() != departure){
             QueueBucket lastVertex = checkedVertex.get(currentVertex.getLastVertex());
-            displayRoute.push("  --"+(currentVertex.getRouteLength()-lastVertex.getRouteLength())+"-->  "+currentVertex.getVertex().getAbbreviation());
+            displayRoute.push(String.format("-- %2.4f -- %s", currentVertex.getRouteLength()-lastVertex.getRouteLength(), currentVertex.getVertex().getAbbreviation()));
+            //displayRoute.push("  --"+(currentVertex.getRouteLength()-lastVertex.getRouteLength())+"-->  "+currentVertex.getVertex().getAbbreviation());
             currentVertex = lastVertex;
         }
-        System.out.print("\n> "+currentVertex.getVertex().getAbbreviation());
+        System.out.print("\n> "+currentVertex.getVertex().getAbbreviation()+" ");
         while(!displayRoute.isEmpty()) {
             System.out.print(displayRoute.pop());
         }
+        System.out.printf("\n> Duration: %dh %dmin", hours, (int) minutes);
         System.out.println("\n> END");
     }
 
@@ -155,7 +167,17 @@ public class AirNavigationGraph {
         return response1 != null && response2 != null;
     }
 
+    /**
+     * Formats the graph in a displayable way (vertex, duration, vertex ...)
+     * Prints it out on the console
+     */
     public void display() {
         //TODO: Implement
+        this.graph.forEach((air, value) -> {
+            System.out.println("\n"+air.getName() + " (" + air.getAbbreviation() + "):");
+            value.forEach((dest, dur) -> {
+                System.out.printf("\t\t >> %2.4f\t %s (%s)\n", dur, dest.getName(), dest.getAbbreviation());
+            });
+        });
     }
 }
