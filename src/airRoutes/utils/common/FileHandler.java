@@ -40,12 +40,11 @@ public class FileHandler {
      * airport country, airport location, airport name, airport abbreviation
      *
      * @param inputGraph The graph in which the vertex should be loaded
-     * @return the full graph
      * @throws IOException if the buffered reader is empty
      */
-    public static AirNavigationGraph getVertex(AirNavigationGraph inputGraph) throws IOException {
+    public static void getVertex(AirNavigationGraph inputGraph) throws IOException {
         BufferedReader reader = readFile("src/airRoutes/docs/data/vertex.CSV");
-        if(reader == null) return inputGraph;
+        if(reader == null) return;
         while (reader.ready()) {
             String[] parsedCsv = reader.readLine().split(delimiter);
 
@@ -55,7 +54,6 @@ public class FileHandler {
 
             inputGraph.addVertex(new Airport(country, location, name, abbreviation));
         }
-        return inputGraph;
     }
 
     /**
@@ -63,12 +61,11 @@ public class FileHandler {
      * start abbreviation, end abbreviation, duration, directional
      *
      * @param inputGraph The graph in which the edge should be constructed
-     * @return the full graph
      * @throws IOException if the buffered reader is empty
      */
-    public static AirNavigationGraph getEdges(AirNavigationGraph inputGraph) throws IOException {
+    public static void getEdges(AirNavigationGraph inputGraph) throws IOException {
         BufferedReader reader = readFile("src/airRoutes/docs/data/edges.csv");
-        if(reader == null) return inputGraph;
+        if(reader == null) return;
         while (reader.ready()) {
             String[] parsedCsv = reader.readLine().split(delimiter);
 
@@ -81,6 +78,5 @@ public class FileHandler {
 
             inputGraph.addEdge(startAirport, endAirport, duration, directional);
         }
-        return inputGraph;
     }
 }

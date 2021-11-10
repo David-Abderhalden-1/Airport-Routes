@@ -37,7 +37,6 @@ public class QueueBucket implements Comparable<QueueBucket>{
     }
 
     //Setter
-
     public void setRouteLength(double routeLength) {
         this.routeLength = routeLength;
     }

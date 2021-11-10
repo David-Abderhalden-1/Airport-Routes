@@ -164,7 +164,7 @@ public class AirNavigationGraph {
     public boolean alterWeight(Airport firstVertex, Airport lastVertex, double weight){
         Object response1 = this.graph.get(firstVertex).replace(lastVertex, weight);
         Object response2 = this.graph.get(lastVertex).replace(firstVertex, weight);
-        return response1 != null && response2 != null;
+        return response1 != null || response2 != null;
     }
 
     /**
@@ -172,7 +172,6 @@ public class AirNavigationGraph {
      * Prints it out on the console
      */
     public void display() {
-        //TODO: Implement
         this.graph.forEach((air, value) -> {
             System.out.println("\n"+air.getName() + " (" + air.getAbbreviation() + "):");
             value.forEach((dest, dur) -> {
