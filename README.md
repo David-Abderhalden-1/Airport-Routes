@@ -8,7 +8,7 @@ be marked in the end. We had the option to choose between seven projects:
   <li style="display: flex; justify-content: space-between; width: 300px">High Score List <span style="color: orange">medium</span></li>
   <li style="display: flex; justify-content: space-between; width: 300px">List of Departures  <span style="color: orange;">medium</span></li>
   <li style="display: flex; justify-content: space-between; width: 300px">Web Service (with XML / Json)  <span style="color: orange;">medium</span></li>
-  <li style="display: flex; justify-content: space-between; width: 300px">City-Tour  <span style="color: green;">easy</span></div>
+  <li style="display: flex; justify-content: space-between; width: 300px">City-Tour  <span style="color: green;">easy</span></li>
   <li style="display: flex; justify-content: space-between; width: 300px">Arithmetic expressions  <span style="color: orange;">medium</span></li>
   <li style="display: flex; justify-content: space-between; width: 300px">Backtracking with Recursion  <span style="color: orange;">medium</span></li>
   <li style="display: flex; justify-content: space-between; width: 300px">Shortest Path -> Route-Planner  <span style="color: red;">hard</span></li>
@@ -53,4 +53,13 @@ David Abderhalden / Joris Hänseler
 <h2>Important Files:</h2>
 
 * airRoutes/AirRoutes.java -> _Main Class_
-* Progress_Description.pdf -> Who made what, when ...
+* docs/Progress_Description.pdf -> Who made what, when ...  
+
+<br>
+<h2>Links:</h2>
+
+Our main source of knowledge comes from the very good [video](https://www.youtube.com/watch?v=GazC3A4OQTE) from [_Computerphiles_
+YouTube](https://www.youtube.com/user/computerphile) channel. With the help of a physical explanation and computer simulations
+he explains the process, pros and cons as well as goals of Dijkstra really well.
+
+
